@@ -1,0 +1,43 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    background-image: url(./images/song\ play.gif);
+    background-size: cover;
+    background-position: center ;
+}
+#navbar{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+#navleft{
+    font-family: cursive;
+    font-size: 30px;
+}
+#navright{
+    display: flex;
+    gap: 10px;
+}
+.btn{
+    border: 1px solid  #FF4433;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 18px;
+
+}
+.btn:hover{
+    background-color:  #FF4433;
+    cursor: pointer;
+}
+#text{
+    font-family: cursive;
+    font-size: 40px;
+}
+
