@@ -101,10 +101,10 @@ loginbtn.addEventListener("click",()=>{
     await signInWithEmailAndPassword(author,signupEmail,signupPassword).then(()=>{
       Swal.fire({
         icon: 'success',
-        title: 'Login Successful!',
-        text: `Welcome back, ${user.email}`,
-        showConfirmButton: false,
-        timer: 1500
+        title: 'login Successful!',
+        text: 'You have successfully loggedin.',
+       showConfirmButton: false, 
+        timer: 1500 
       }).then(()=>{
        location.href="../home.html"
       })
