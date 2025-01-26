@@ -60,6 +60,7 @@ SignupSubmit.addEventListener("click", async()=>{
                 document.getElementById("signupName").textContent=""
                 document.getElementById("signupEmail").textContent=""
                 document.getElementById("signupPassword").textContent=""
+                location.href="./landingpage.html"
               })
 
         })
@@ -93,12 +94,12 @@ loginbtn.addEventListener("click",()=>{
       title: 'Oops...',
       text: 'Please fill in all the required fields.',
     }).then(()=>{
-      loginModal.show()
+    loginModal.show()
    })
    return;
   }
   try{
-    await signInWithEmailAndPassword(author,signupEmail,signupPassword).then(()=>{
+    await signInWithEmailAndPassword(author,loginEmail,loginPassword).then(()=>{
       Swal.fire({
         icon: 'success',
         title: 'login Successful!',
@@ -106,19 +107,25 @@ loginbtn.addEventListener("click",()=>{
        showConfirmButton: false, 
         timer: 1500 
       }).then(()=>{
-       location.href="../home.html"
-      })
-       document.getElementById("loginEmail").textContent=""
+         document.getElementById("loginEmail").textContent=""
         document.getElementById("loginPassword").textContent=""
+       location.href="../home.html"
+
+      })
+      
     })
      
   }
   catch(err){
     Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: err,
-    })
+      icon: 'error', 
+      title: 'Invalid Credentials',
+      text: 'Invalid email or password',
+      showConfirmButton: true, 
+      confirmButtonText: 'Try Again',
+      confirmButtonColor: 'orangered', 
+      confirmButtonTextColor: '#FF5733' 
+    });
 
   }
 
