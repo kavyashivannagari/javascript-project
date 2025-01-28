@@ -2,7 +2,7 @@
 #landing{
     width: 100%;
     height: 100vh;
-    background-image: url(./images/landback.gif);
+    background-image: url(./images/landingback.gif);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -37,7 +37,6 @@
     border-radius: 20px;
 } */
 .modal-dialog {
-
     border: 4px solid orangered;
     border-radius: 15px;
 }
@@ -67,3 +66,6 @@
     background-color: orangered;
 
 }
+.my-popup {
+    border: 4px solid #FF5733; /* Set border color to orange */
+  }
