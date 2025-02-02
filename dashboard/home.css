@@ -3,9 +3,10 @@
     padding: 0px;
     box-sizing: border-box;
 }
-#home{
-    background-image: url();
+body{
+    padding: 10px;
 }
+
 nav{
     display: flex;
     justify-content: space-between;
@@ -15,6 +16,9 @@ nav{
     align-items: center;
     gap: 20px;
     padding: 10px;
+}
+#navleft h2{
+    color: #580052;
 }
 #navright{
     display: flex;
@@ -28,6 +32,7 @@ nav{
     border-radius: 20px; 
     padding: 10px 20px; 
     align-items: center;
+    box-shadow: 3px 3px 3px #580052;
     position: relative; /* Add position: relative to the search-bar */
 }
 
@@ -37,20 +42,21 @@ nav{
     background: transparent;
     flex-grow: 1;
     font-size: 16px; 
-    color: #666;
+    color:#580052;
     padding-left: 30px; 
 }
 
 .search-bar input[type="text"]::placeholder {
     padding-left: 30px; 
+    color: #580052;
 }
 
 .search-bar i {
-    position: absolute; 
+    position: absolute;
+    color:#580052 ;
     left: 10px; 
     top: 50%; /* Center icon vertically */
     transform: translateY(-50%); 
-    color: #999; 
 }
 #navigationlinks{
     display: flex;
@@ -59,24 +65,37 @@ nav{
 }
 #navigationlinks a{
     text-decoration: none;
-    border: 2px solid black;
     padding: 6px 24px;
     border-radius: 20px;
-    color: black;
+    color: #580052;
+    box-shadow: 4px 4px 4px #580052;
 
 }
+#navigationlinks a:hover{
+    background-color: #580052;
+    color: white;
+}
 #logout{
+    border:none;
     padding: 6px 25px; 
     border-radius: 20px;
+    color: #580052;
+    box-shadow: 4px 4px 4px #580052;
+ }
+ #logout:hover{
+    background-color: #580052;
+    color: white;
  }
 #hamicon{
     font-size: 28px;
+    color: #580052;
+    ;
 }
 
 #homeaside{
     width: 20%;
     height: 100vh;
-    border: 1px solid orangered;
+    border: 1px solid #580052;
     padding: 80px 30px;
     display: flex;
     margin-left: 10px;
@@ -86,10 +105,11 @@ nav{
 }
 #homeaside a{
     text-decoration: none;
-    border: 2px solid black;
     padding: 6px 25px;
     color: black;
     border-radius: 20px;
+    box-shadow: 4px 4px 4px #580052
+    
 }
 #homeaside{
     display: none;
@@ -97,16 +117,20 @@ nav{
 #homesection{
     width: 100%;
     height: 100vh;
-    border: 2px solid black;
     padding: 10px;
+    box-shadow: 2px 2px 2px #580052;
 }
+
+
+
 
 .carousel-container {
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    position: relative;
+    position: relative; /* Add this */
+    padding: 50px;
 }
 .songs-slider {
     display: flex;
@@ -114,22 +138,96 @@ nav{
     overflow-x: auto;
     scrollbar-width: none;
     scroll-behavior: smooth;
-    width: 80%;
+    width: 98%;
+    height: 90vh;
     overflow-y: hidden;
     padding-bottom: 1rem;
 }
-.speaker-card {
+
+.songCard {
     box-sizing: border-box;
     flex: 0 0 20%;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    height: 15rem;
+    margin-left: 2.7%;
+    margin-right: 2%;
+    height: 20rem;
     border-radius: 0.5rem;
     padding: 0.5rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px #580052;
     cursor: pointer;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
+.songCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px #580052;
+}
 
+.songCard img {
+    width: 100%;
+    height: 60%;
+border-radius:15rem;
+    margin-bottom: 0.3rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.songCard h5,
+.songCard h6 {
+    margin: 0;
+    padding: 0;
+    padding-top: 0.2rem;
+}
+
+.carousel-control {
+    font-size: 2rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 1rem;
+    position: absolute; /* Keep this */
+    display: flex;
+    align-items: center;
+    color: #580052;
+    transition: transform 0.3s ease, color 0.3s ease;
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Center vertically */
+}
+
+.carousel-control.left {
+    left: 3px; /* Position the left control */
+}
+
+.carousel-control.right {
+    right: 3px; /* Position the right control */
+}
+
+.carousel-control:hover {
+    color: #580052;
+    transform: translateY(-50%) scale(1.1); /* Adjust for vertical centering */
+}
+
+#searchResultsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+  }
+  
+  .songCard {
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .songCard img {
+    width: 100%;
+    border-radius: 8px;
+  }
+   

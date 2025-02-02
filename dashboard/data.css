@@ -1,0 +1,47 @@
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form{
+    width: 40%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+    align-items: center;
+    border: 2px solid #580054;
+    border-radius: 20px;
+    box-shadow: 10px 10px 10px #580054;
+}
+input{
+    width: 70%;
+    height: 30px;
+    outline: none;
+    border: 1px solid #580054;
+    border-radius: 25px;
+    text-align: center;
+    padding: 10px;
+    color: #580054;
+}
+input:hover{
+    box-shadow: 6px 6px 6px #580054;
+
+}
+select{
+    border: 1px solid #580054;
+    border-radius: 20px;
+    color: #580054;
+
+}
+button{
+   border: 2px solid #580054; 
+   padding: 6px 25px;
+   border-radius: 20px;
+}
+select{
+    padding: 10px;
+}

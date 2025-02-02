@@ -19,13 +19,15 @@
         </div>
         <div id="navright">
             <div class="search-bar">
-                <i class="fa fa-search"></i>
-                <input type="text" placeholder="Search Artists, Songs, Albums">
+                <i class="fa fa-search" id="searchicon"></i>
+                <input type="text" placeholder="Search Artists, Songs, Albums" id="searchInput">
             </div>
            <div id="navigationlinks">
             <a href="">Home</a>
             <a href="">AboutUS</a>
             <a href="">Contactus</a>
+            <a href="./data.html">Add song</a>
+
             <button type="button" id="logout">logout</button>
            </div>
         </div>
@@ -39,12 +41,17 @@
         <a href="">Artists</a>
         <a href="">Wishlist</a>
     </aside>
-    <section id="homesection">
- 
-      
-    </section>
+    <div id="songsCarouselContainer">
+        <button class="carousel-control left" aria-label="Previous Song"><i
+            class="fa-solid fa-chevron-left buttons"></i></button>
+    <div class="songs-slider" id="songSlider">
+
     </div>
-    <footer id="homefooter"></footer>
+    <button class="carousel-control right" aria-label="Next Song"><i
+            class="fa-solid fa-chevron-right buttons"></i></button>
+    </div>
+    <div id="searchResultsContainer" style="display: none;">
+        <!-- Search results will be displayed here -->
     </div>
     <script src="./home.js" type="module"></script>
 </body>
