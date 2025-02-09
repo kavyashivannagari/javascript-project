@@ -11,10 +11,11 @@ nav{
     display: flex;
     justify-content: space-between;
 }
+
 #navleft{
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     padding: 10px;
 }
 #navleft h2{
@@ -23,7 +24,7 @@ nav{
 #navright{
     display: flex;
     justify-content: space-around;
-    gap: 50px;
+    gap: 30px;
     align-items: center;
     padding: 10px;
 }

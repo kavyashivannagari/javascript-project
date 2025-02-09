@@ -90,9 +90,16 @@ function organizeDataByLanguage(data) {
   }
   return organizedData;
 }
+// function for selected single song
+function setSelectedsong(song){
+  localStorage.setItem('selectedSong', JSON.stringify(song));
+}
+
+
 
 async function displaySongs() {
   const data = await fetchSongData(); // Await the promise to get the resolved data
+  console.log(data)
   if (data) {
     const organizedData = organizeDataByLanguage(data);
     const allSongs = Object.values(organizedData).flat(); // Flatten the data into an array of songs
@@ -110,6 +117,7 @@ async function displaySongs() {
         <p>${song.artist}</p>
       `;
       card.addEventListener("click", () => {
+        setSelectedsong(song);
         location.href = "../dashboard/singlesong.html";
       });
       songSlider.append(card);
@@ -152,7 +160,8 @@ displaySongs();
 // Search functionality
 function filterSongs(songs, UserSearch) {
   const UserSearchWords = UserSearch.toLowerCase().split(' '); // Split the query into individual words
-
+  // console.log(UserSearchWords);
+  
   return songs.filter(song => {
     const songTitle = song.title.toLowerCase();
     const songArtist = song.artist.toLowerCase();
@@ -163,15 +172,28 @@ function filterSongs(songs, UserSearch) {
     const songActors = song.actors ? song.actors.toLowerCase() : "";
 
     // Check if all query words are present in the song's title, artist, or album
-    return UserSearchWords.every(word =>
-      songTitle.includes(word) ||
-      songArtist.includes(word) ||
-      songAlbum.includes(word) ||
-      songReleaseyear.includes(word) ||
-      songLanguage.includes(word) ||
-      songCategory.includes(word) ||
-      songActors.includes(word)
-    );
+    let searchKey = UserSearchWords[0];
+    // console.log(searchKey, typeof searchKey)
+    // console.log(songTitle, typeof songTitle)
+    
+    return (
+      songTitle.includes(searchKey) ||
+      songArtist.includes(searchKey) ||
+      songAlbum.includes(searchKey) ||
+      songReleaseyear.includes(searchKey) ||
+      songLanguage.includes(searchKey) ||
+      songCategory.includes(searchKey) ||
+      songActors.includes(searchKey)
+    )
+    // return searchKey.every(word =>
+    //   songTitle.includes(word) ||
+    //   songArtist.includes(word) ||
+    //   songAlbum.includes(word) ||
+    //   songReleaseyear.includes(word) ||
+    //   songLanguage.includes(word) ||
+    //   songCategory.includes(word) ||
+    //   songActors.includes(word)
+    // );
   });
 }
 
@@ -203,9 +225,8 @@ function displayFilteredSongs(filteredSongs) {
         <p>${song.artist}</p>
       `;
       card.addEventListener("click", () => {
+        setSelectedsong(song);
         location.href = "../dashboard/singlesong.html";
-
-
       });
       searchResultsContainer.append(card);
     });
@@ -213,7 +234,7 @@ function displayFilteredSongs(filteredSongs) {
     searchResultsContainer.innerHTML = "<p>No songs found.</p>";
   }
 }
-
+// -----------------------------------------------------------------------------------------
 // Event listener for search input
 const searchInput = document.getElementById("searchInput");
 searchInput.addEventListener("input", async () => {
@@ -249,4 +270,3 @@ searchInput.addEventListener("input", async () => {
     console.log("No songs found.");
   }
 });
-export{card}

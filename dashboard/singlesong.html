@@ -5,12 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>singlesong view</title>
     <link rel="stylesheet" href="./singlesong.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 </head>
 <body>
-    <div id="cardcontainer">
+    
+    <div id="SingleSongConatiner">
+       <div id="singleSongTop">
+        <div id="singleSongtopLeft">
+            <img src="" alt="" id="songImage">
+        </div>
+      
+       <div id="singleSongtopRight">
+        <h2 id="songTitle"></h2>
+        <h4 id="songAlbum"></h4>
+        <p id="songArtist"></p>
+        <p id="songCategory"></p>
+        <p id="songLanguage"></p>
+        <p id="SongReleaseYear"></p>
+       </div>
+       </div>
         
+       <div id="singleSongBottom">
+        <audio id="songAudio" controls>
+            <source src="" type="audio/mpeg">
+        </audio>
+
+        <div id="audioControls">
+            <button id="playPauseBtn" ><i class="fas fa-play"></i></button>
+            <button id="rewindBtn"><i class="fas fa-backward"></i></button>
+            <button id="fastForwardBtn"><i class="fas fa-forward"></i></button>
+        </div>
+       </div>
     </div>
-    <audio src=""></audio>
    <script src="./singlesong.js" type="module"></script> 
 </body>
 </html>

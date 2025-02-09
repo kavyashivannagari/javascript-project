@@ -1,16 +1,53 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+document.addEventListener("DOMContentLoaded",()=>{
+    const selectedSong=JSON.parse(localStorage.getItem("selectedSong"));
+    if(selectedSong){
+        document.getElementById("songTitle").textContent=`Title: ${selectedSong.title}`;
+        document.getElementById("songAlbum").textContent=`Album: ${selectedSong.album}`;
+        document.getElementById("songArtist").textContent=`Artist: ${selectedSong.artist}`;
+        document.getElementById("songImage").src=selectedSong.coverImage
+}
+if(selectedSong.audioUrl){
+    document.getElementById("songAudio").src=selectedSong.audioUrl;
+}
+if(selectedSong.releaseYear){
+    document.getElementById('SongReleaseYear').textContent=`Release Year: ${selectedSong.releaseYear}`;
+}
+if(selectedSong.language){
+    document.getElementById("songLanguage").textContent=`language: ${selectedSong.language}`;
+}
+if(selectedSong.category){
+document.getElementById("songCategory").textContent=`Genre: ${selectedSong.category}`
+}
+else{
+    console.error("no song selected")
+}
+})
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBDGJ5CaMG7XVltrSJ1VEqiaOonivmy0eg",
-  authDomain: "audio-alley-authentication.firebaseapp.com",
-  projectId: "audio-alley-authentication",
-  storageBucket: "audio-alley-authentication.appspot.com",
-  messagingSenderId: "265076676307",
-  appId: "1:265076676307:web:7c6e8b341fb3d3cf7c6626"
-};
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-import{card} from "./home.js"
+const songAudio = document.getElementById("songAudio");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const rewindBtn = document.getElementById("rewindBtn");
+const fastForwardBtn = document.getElementById("fastForwardBtn");
+const playPauseIcon = playPauseBtn.querySelector("i");
+
+// Play or Pause the song
+playPauseBtn.addEventListener("click", () => {
+    if (songAudio.paused) {
+        songAudio.play();
+        playPauseIcon.classList.replace("fa-play", "fa-pause");
+    } else {
+        songAudio.pause();
+        playPauseIcon.classList.replace("fa-pause", "fa-play");
+    }
+});
+
+// Rewind the song by 5 seconds
+rewindBtn.addEventListener("click", () => {
+    songAudio.currentTime = Math.max(0, songAudio.currentTime - 5);
+});
+
+// Fast-forward the song by 5 seconds
+fastForwardBtn.addEventListener("click", () => {
+    songAudio.currentTime = Math.min(songAudio.duration, songAudio.currentTime + 5);
+});
+

@@ -1,183 +1,215 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-  const firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyBDGJ5CaMG7XVltrSJ1VEqiaOonivmy0eg",
     authDomain: "audio-alley-authentication.firebaseapp.com",
     projectId: "audio-alley-authentication",
     storageBucket: "audio-alley-authentication.firebasestorage.app",
     messagingSenderId: "265076676307",
     appId: "1:265076676307:web:7c6e8b341fb3d3cf7c6626"
-  };
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-const author=getAuth(app)
-// Get all input elements within the signup and login forms
-const signupInputs = document.querySelectorAll('#signupForm input');
-const loginInputs = document.querySelectorAll('#loginForm input');
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// Function to handle keyboard navigation within a form
-// function handleKeyboardNavigation(inputs) {
-//   inputs.forEach((input, index) => {
-//     input.addEventListener('keydown', (event) => {
-//       if (event.key === 'Enter') {
-//         event.preventDefault(); // Prevent form submission on Enter
+// Validation Functions
+function validateName(name) {
+    const nameRegex = /^[A-Za-z\s]{2,30}$/;
+    if (name.trim() === "") {
+        return { isValid: false, error: "Name is required" };
+    }
+    if (!nameRegex.test(name)) {
+        return { isValid: false, error: "Name should only contain letters and be 2-30 characters long" };
+    }
+    return { isValid: true, error: null };
+}
 
-//         // Move focus to the next input or submit the form
-//         if (index < inputs.length - 1) {
-//           inputs[index + 1].focus(); 
-//         } else {
-          
-//           input.form.submit(); 
-//         }
-//       }
-//     });
-//   });
-// }
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email.trim() === "") {
+        return { isValid: false, error: "Email is required" };
+    }
+    if (!emailRegex.test(email)) {
+        return { isValid: false, error: "Please enter a valid email address" };
+    }
+    return { isValid: true, error: null };
+}
 
-// // Apply keyboard navigation to both signup and login forms
-// handleKeyboardNavigation(signupInputs);
-// handleKeyboardNavigation(loginInputs);
+function validatePassword(password) {
+    if (password.trim() === "") {
+        return { isValid: false, error: "Password is required" };
+    }
+    if (password.length < 8) {
+        return { isValid: false, error: "Password must be at least 8 characters long" };
+    }
+    if (!/[A-Z]/.test(password)) {
+        return { isValid: false, error: "Password must contain at least one uppercase letter" };
+    }
+    if (!/[a-z]/.test(password)) {
+        return { isValid: false, error: "Password must contain at least one lowercase letter" };
+    }
+    if (!/[0-9]/.test(password)) {
+        return { isValid: false, error: "Password must contain at least one number" };
+    }
+    return { isValid: true, error: null };
+}
 
+// Real-time validation feedback
+function addInputValidation(inputElement, validationFunction) {
+    inputElement.addEventListener('input', () => {
+        const result = validationFunction(inputElement.value);
+        if (!result.isValid) {
+            inputElement.classList.add('is-invalid');
+            inputElement.classList.remove('is-valid');
+            
+            // Create or update feedback message
+            let feedback = inputElement.nextElementSibling;
+            if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+                feedback = document.createElement('div');
+                feedback.className = 'invalid-feedback';
+                inputElement.parentNode.appendChild(feedback);
+            }
+            feedback.textContent = result.error;
+        } else {
+            inputElement.classList.remove('is-invalid');
+            inputElement.classList.add('is-valid');
+            
+            // Remove error message if exists
+            const feedback = inputElement.nextElementSibling;
+            if (feedback && feedback.classList.contains('invalid-feedback')) {
+                feedback.remove();
+            }
+        }
+    });
+}
 
+// Signup Form Validation
+document.getElementById('signupbtn').addEventListener('click', () => {
+    const signupModal = new bootstrap.Modal(document.getElementById('signupModal'));
+    signupModal.show();
+});
 
-
-
-
-let signupbtn=document.getElementById("signupbtn")
-let loginbtn=document.getElementById("loginbtn")
-
-signupbtn.addEventListener("click",()=>{
-    let signupModal=new bootstrap.Modal(document.getElementById("signupModal"))
-    signupModal.show()
-    let SignupSubmit=document.getElementById("SignupSubmit")
-SignupSubmit.addEventListener("click", async()=>{
-    let signupName =document.getElementById("signupName").value.trim()
-    let signupEmail =document.getElementById("signupEmail").value.trim()
-    let signupPassword =document.getElementById("signupPassword").value.trim()
-
-   if(signupName===""||signupEmail===""||signupPassword===""){
-    Swal.fire({
-      icon: 'warning',
-      title: 'Oops...',
-      text: 'Please fill out all the fields!',
-      confirmButtonColor: '#FF5733', // Orange color
-      confirmButtonText: 'Try Again',
-      confirmButtonColor: '#000', // Black color
-      customClass: {
-        popup: 'my-popup' // Add a custom class for styling
-      }
-    }).then( ()=>{
-        signupModal.show()
-      })
-      return;
-      }
-      try{
-  
-        await  createUserWithEmailAndPassword(author,signupEmail,signupPassword).then(()=>{
+document.getElementById('SignupSubmit').addEventListener('click', async (e) => {
+    e.preventDefault();
+    
+    const nameInput = document.getElementById('signupName');
+    const emailInput = document.getElementById('signupEmail');
+    const passwordInput = document.getElementById('signupPassword');
+    
+    const nameValidation = validateName(nameInput.value);
+    const emailValidation = validateEmail(emailInput.value);
+    const passwordValidation = validatePassword(passwordInput.value);
+    
+    // Check all validations
+    if (!nameValidation.isValid || !emailValidation.isValid || !passwordValidation.isValid) {
+        let errorMessage = "Please fix the following errors:\n";
+        if (!nameValidation.isValid) errorMessage += `- ${nameValidation.error}\n`;
+        if (!emailValidation.isValid) errorMessage += `- ${emailValidation.error}\n`;
+        if (!passwordValidation.isValid) errorMessage += `- ${passwordValidation.error}\n`;
         
-
-          Swal.fire({
+        Swal.fire({
+            icon: 'error',
+            title: 'Validation Error',
+            text: errorMessage,
+            confirmButtonColor: '#580052'
+        });
+        return;
+    }
+    
+    // If validation passes, proceed with signup
+    try {
+        const signupModal = bootstrap.Modal.getInstance(document.getElementById('signupModal'));
+        await createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+        
+        Swal.fire({
             icon: 'success',
             title: 'Registration Successful!',
-            text: 'You have successfully registered.',
-            confirmButtonColor: '#3085d6', // Blue color
-            confirmButtonText: 'Ok',
-            customClass: {
-              popup: 'my-popup' // Add a custom class for styling
-            }
-          }).then(() => {
-            // let signupModal = new bootstrap.Modal(document.getElementById("signupModal"));
-            signupModal.hide(); 
-          
-            document.getElementById("signupName").value = "";
-            document.getElementById("signupEmail").value = "";
-            document.getElementById("signupPassword").value = "";
-            let loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+            text: 'You can now log in with your credentials',
+            confirmButtonColor: '#580052'
+        }).then(() => {
+            signupModal.hide();
+            // Clear the form
+            nameInput.value = '';
+            emailInput.value = '';
+            passwordInput.value = '';
+            // Show login modal
+            const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
             loginModal.show();
-          
-           
-          });
-
-
-      })
-    }
-      catch(err){
+        });
+    } catch (error) {
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: err,
-          confirmButtonColor: '#FF5733', // Orange color
-          confirmButtonText: 'Ok',
-          customClass: {
-            popup: 'my-popup' // Add a custom class for styling
-          }
-        })
+            icon: 'error',
+            title: 'Registration Failed',
+            text: error.message,
+            confirmButtonColor: '#580052'
+        });
     }
-  
-   
+});
+
+// Login Form Validation
+document.getElementById('loginbtn').addEventListener('click', () => {
+    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+    loginModal.show();
+});
+
+document.getElementById('LoginSubmit').addEventListener('click', async (e) => {
+    e.preventDefault();
     
-})
+    const emailInput = document.getElementById('loginEmail');
+    const passwordInput = document.getElementById('loginPassword');
+    
+    const emailValidation = validateEmail(emailInput.value);
+    const passwordValidation = validatePassword(passwordInput.value);
+    
+    if (!emailValidation.isValid || !passwordValidation.isValid) {
+        let errorMessage = "Please fix the following errors:\n";
+        if (!emailValidation.isValid) errorMessage += `- ${emailValidation.error}\n`;
+        if (!passwordValidation.isValid) errorMessage += `- ${passwordValidation.error}\n`;
+        
+        Swal.fire({
+            icon: 'error',
+            title: 'Validation Error',
+            text: errorMessage,
+            confirmButtonColor: '#580052'
+        });
+        return;
+    }
+    
+    // If validation passes, proceed with login
+    try {
+        await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+        
+        Swal.fire({
+            icon: 'success',
+            title: 'Login Successful!',
+            text: 'Redirecting to dashboard...',
+            timer: 1500,
+            showConfirmButton: false
+        }).then(() => {
+            window.location.href = "./dashboard/home.html";
+        });
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: 'Invalid email or password',
+            confirmButtonColor: '#580052'
+        });
+    }
+});
 
-})
-
-
-loginbtn.addEventListener("click",()=>{
-  let loginModal=new bootstrap.Modal(document.getElementById("loginModal"))
-  loginModal.show()
-})
-let LoginSubmit=document.getElementById("LoginSubmit")
-LoginSubmit.addEventListener("click", async()=>{
-  let loginEmail=document.getElementById("loginEmail").value.trim()
-  let loginPassword=document.getElementById("loginPassword").value.trim()
-
-  if(loginEmail===""||loginPassword===""){
-    Swal.fire({
-      icon: 'warning',
-      title: 'Oops...',
-      text: 'Please fill out all the fields!',
-      confirmButtonColor: '#FF5733', // Orange color
-      confirmButtonText: 'Try Again',
-      // confirmButtonColor: '#000', // Black color
-      customClass: {
-        popup: 'my-popup' // Add a custom class for styling
-      }
-    }).then(()=>{
-    loginModal.show()
-   })
-   return;
-  }
-  try{
-    await signInWithEmailAndPassword(author,loginEmail,loginPassword).then(()=>{
-      Swal.fire({
-        icon: 'success',
-        title: 'login Successful!',
-        text: 'You have successfully loggedin.',
-       showConfirmButton: false, 
-        timer: 1500 
-      }).then(()=>{
-         document.getElementById("loginEmail").textContent=""
-        document.getElementById("loginPassword").textContent=""
-       location.href="./dashboard/home.html"
-
-      })
-      
-    })
-     
-  }
-  catch(err){
-    Swal.fire({
-      icon: 'error', 
-      title: 'Invalid Credentials',
-      text: 'Invalid email or password',
-      showConfirmButton: true, 
-      confirmButtonText: 'Try Again',
-      confirmButtonColor: 'orangered', 
-      // confirmButtonTextColor: '#FF5733' 
-    });
-
-  }
-
- })
+// Add real-time validation to all inputs
+document.addEventListener('DOMContentLoaded', () => {
+    const signupName = document.getElementById('signupName');
+    const signupEmail = document.getElementById('signupEmail');
+    const signupPassword = document.getElementById('signupPassword');
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
+    
+    addInputValidation(signupName, validateName);
+    addInputValidation(signupEmail, validateEmail);
+    addInputValidation(signupPassword, validatePassword);
+    addInputValidation(loginEmail, validateEmail);
+    addInputValidation(loginPassword, validatePassword);
+});

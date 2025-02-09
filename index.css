@@ -1,71 +1,181 @@
-
-#landing{
+#landing {
     width: 100%;
     height: 100vh;
-    background-image: url(./images/landingback.gif);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
-.navbar-brand{
+
+.navbar-brand {
     font-family: cursive;
     font-weight: bolder;
-    
 }
-#signupbtn,#loginbtn{
-    border:none;
+
+#signupbtn, #loginbtn {
+    border: none;
     padding: 6px 24px;
     border-radius: 15px;
     border: 1.5px solid black;
     color: black;
 }
-#signupbtn:hover,#loginbtn:hover{
+
+#signupbtn:hover, #loginbtn:hover {
     border: none;
-    background-color: orangered;
+    background-color: #580052;
+    color: white;
 }
-.closebtn{
+
+.closebtn {
     border: none;
     outline: none;
 }
-.closebtn:hover,.closebtn:active{
-    border: 1.5px solid orangered ;
-    background-color: orangered;
-    
+
+.closebtn:hover, .closebtn:active {
+    border: 1.5px solid #580052;
+    background-color: #580052;
+    color: white;
 }
-/* .modal-fade{
-    border: 2px solid orangered;
+
+.modal-fade {
+    /* border: 2px solid orangered; */
     border-radius: 20px;
-} */
+}
+
 .modal-dialog {
-    border: 4px solid orangered;
+    /* border: 4px solid #580052; */
     border-radius: 15px;
 }
+
 .modal-body input {
     outline: none;
-    border: none; 
+    border: none;
     width: 100%;
     height: 100%;
     text-align: center;
-    color: orangered;
-    border-bottom: 1.5px solid orangered;
-}
-.modal-body input:hover,.modal-body input:focus,.modal-body input:active{
-    box-shadow: 4px 4px 4px orangered;
-    border-width: 2px; 
+    color: #580052;
+    border-bottom: 1.5px solid #580052;
 }
 
-#SignupSubmit,#LoginSubmit{
-    border: 1.5px solid orange;
+.modal-body input:hover, .modal-body input:focus, .modal-body input:active {
+    box-shadow: 4px 4px 4px #580052;
+    /* border-width: 2px; */
+}
+
+#SignupSubmit, #LoginSubmit {
+    border: 1.5px solid #580052;
     padding: 6px 25px;
-    background-color: orangered;
+    background-color: #580052;
     border-radius: 20px;
-
+    color: white;
 }
-#SignupSubmit:hover,#LoginSubmit:hover{
+
+#SignupSubmit:hover, #LoginSubmit:hover {
     border: none;
-    background-color: orangered;
-
+    background-color: #580052;
 }
+
 .my-popup {
-    border: 4px solid #FF5733; /* Set border color to orange */
-  }
+    border: 4px solid #580052;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar .d-flex {
+        display: none;
+    }
+
+    .navbar-toggler {
+        display: block;
+        border: none;
+        background: transparent;
+        font-size: 1.5rem;
+        color: black;
+        cursor: pointer;
+    }
+
+    .navbar-toggler:focus {
+        outline: none;
+    }
+
+    .mobile-menu {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        background-color: white;
+        padding: 10px;
+        border: 1.5px solid #580052;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-menu.show {
+        display: flex;
+    }
+
+    .mobile-menu button {
+        padding: 6px 24px;
+        border-radius: 15px;
+        border: 1.5px solid black;
+        color: black;
+        background-color: white;
+    }
+
+    .mobile-menu button:hover {
+        background-color: #580052;
+        color: white;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .navbar {
+        justify-content: space-between;
+    }
+
+    #signupbtn, #loginbtn {
+        padding: 8px 28px;
+        font-size: 1rem;
+    }
+
+    .modal-dialog {
+        /* width: 90%; */
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1366px) {
+    .navbar {
+        justify-content: space-between;
+    }
+
+    #signupbtn, #loginbtn {
+        padding: 10px 30px;
+        font-size: 1.1rem;
+    }
+
+    .modal-dialog {
+        /* width: 70%; */
+        max-width: 800px;
+    }
+}
+
+@media (min-width: 1367px) {
+    .navbar {
+        justify-content: space-between;
+    }
+
+    #signupbtn, #loginbtn {
+        padding: 12px 36px;
+        font-size: 1.2rem;
+    }
+
+    .modal-dialog {
+        /* width: 50%; */
+        max-width: 900px;
+    }
+}
