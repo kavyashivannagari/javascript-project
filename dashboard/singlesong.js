@@ -1,107 +1,139 @@
-document.addEventListener("DOMContentLoaded",()=>{
-    const selectedSong=JSON.parse(localStorage.getItem("selectedSong"));
-    if(selectedSong){
-        document.getElementById("songTitle").textContent=`Title: ${selectedSong.title}`;
-        document.getElementById("songAlbum").textContent=`Album: ${selectedSong.album}`;
-        document.getElementById("songArtist").textContent=`Artist: ${selectedSong.artist}`;
-        document.getElementById("songImage").src=selectedSong.coverImage
-}
-if(selectedSong.audioUrl){
-    document.getElementById("songAudio").src=selectedSong.audioUrl;
-}
-if(selectedSong.releaseYear){
-    document.getElementById('SongReleaseYear').textContent=`Release Year: ${selectedSong.releaseYear}`;
-}
-if(selectedSong.language){
-    document.getElementById("songLanguage").textContent=`language: ${selectedSong.language}`;
-}
-if(selectedSong.category){
-document.getElementById("songCategory").textContent=`Genre: ${selectedSong.category}`
-}
-else{
-    console.error("no song selected")
-}
-})
+document.addEventListener("DOMContentLoaded", () => {
+    // Get all necessary DOM elements
+    const audioElement = document.getElementById("songAudio");
+    const playPauseButton = document.getElementById("playPauseBtn");
+    const rewindButton = document.getElementById("rewindBtn");
+    const fastForwardButton = document.getElementById("fastForwardBtn");
+    const previousSongBtn = document.getElementById("previousSongBtn");
+    const nextSongBtn = document.getElementById("nextSongBtn");
+    const createPlaylistBtn = document.getElementById("createPlaylistBtn");
+    const progressBar = document.getElementById("progressBar");
+    const currentTimeSpan = document.getElementById("currentTime");
+    const durationSpan = document.getElementById("duration");
 
+    let isPlaying = false;
+    let currentSongIndex = 0;
+    let songsList = [];
 
+    // Function to load and display song data
+    function loadSong(songData) {
+        if (songData) {
+            // Update UI elements
+            document.getElementById("songTitle").textContent = `Title: ${songData.title}`;
+            document.getElementById("songAlbum").textContent = `Album: ${songData.album}`;
+            document.getElementById("songArtist").textContent = `Artist: ${songData.artist}`;
+            document.getElementById("songImage").src = songData.coverImage;
+            audioElement.src = songData.audioUrl;
 
-
-
-
-const audioElement = document.getElementById("songAudio");
-        const playPauseButton = document.getElementById("playPauseBtn");
-        const rewindButton = document.getElementById("rewindBtn");
-        const fastForwardButton = document.getElementById("fastForwardBtn");
-
-        // Create a progress bar and time display
-        const progressBar = document.createElement("input");
-        progressBar.type = "range";
-        progressBar.id = "progressBar";
-        progressBar.value = 0;
-        progressBar.min = 0;
-        progressBar.max = 100;
-
-        const currentTimeDisplay = document.createElement("span");
-        currentTimeDisplay.id = "currentTime";
-        currentTimeDisplay.textContent = "0:00";
-
-        const durationDisplay = document.createElement("span");
-        durationDisplay.id = "duration";
-        durationDisplay.textContent = "0:00";
-
-        const progressContainer = document.createElement("div");
-        progressContainer.id = "progressContainer";
-        progressContainer.appendChild(currentTimeDisplay);
-        progressContainer.appendChild(progressBar);
-        progressContainer.appendChild(durationDisplay);
-        const controlsDiv = document.getElementById("audioControls");
-        controlsDiv.after(progressContainer);
-
-        // Play/Pause toggle
-        let isPlaying = false;
-        playPauseButton.addEventListener("click", () => {
-            if (isPlaying) {
-                audioElement.pause();
-                playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
-            } else {
-                audioElement.play();
-                playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+            if (songData.releaseYear) {
+                document.getElementById("songReleaseYear").textContent = `Release Year: ${songData.releaseYear}`;
             }
-            isPlaying = !isPlaying;
-        });
+            if (songData.language) {
+                document.getElementById("songLanguage").textContent = `Language: ${songData.language}`;
+            }
+            if (songData.category) {
+                document.getElementById("songCategory").textContent = `Genre: ${songData.category}`;
+            }
 
-        // Rewind
-        rewindButton.addEventListener("click", () => {
-        
-            audioElement.currentTime = Math.max(0, audioElement.currentTime - 5);
-        });
+            // Reset play/pause button state
+            isPlaying = false;
+            playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
 
-        // Fast forward
-        fastForwardButton.addEventListener("click", () => {
-            audioElement.currentTime = Math.min(audioElement.duration, audioElement.currentTime + 5);
-        });
-
-        // Update progress bar
-        audioElement.addEventListener("timeupdate", () => {
-            const progress = (audioElement.currentTime / audioElement.duration) * 100;
-            progressBar.value = progress;
-            currentTimeDisplay.textContent = formatTime(audioElement.currentTime);
-        });
-
-        // Set duration
-        audioElement.addEventListener("loadedmetadata", () => {
-            durationDisplay.textContent = formatTime(audioElement.duration);
-        });
-
-        // Seek audio
-        progressBar.addEventListener("input", () => {
-            const seekTime = (progressBar.value / 100) * audioElement.duration;
-            audioElement.currentTime = seekTime;
-        });
-
-        // Format time helper
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
-            return `${minutes}:${secs}`;
+            // Store current song in localStorage
+            localStorage.setItem("selectedSong", JSON.stringify(songData));
+            
+            // Update current song index
+            currentSongIndex = songsList.findIndex(song => song.title === songData.title);
         }
+    }
+
+    // Function to initialize songs list from database
+    function initializeSongsList() {
+        // Get songs list from localStorage (you can modify this to fetch from your actual database)
+        songsList = JSON.parse(localStorage.getItem("songsList")) || [];
+        
+        // Get currently selected song
+        const selectedSong = JSON.parse(localStorage.getItem("selectedSong"));
+        if (selectedSong) {
+            currentSongIndex = songsList.findIndex(song => song.title === selectedSong.title);
+            if (currentSongIndex === -1) currentSongIndex = 0;
+        }
+    }
+
+    // Function to load previous song
+    function loadPreviousSong() {
+        if (songsList.length === 0) return;
+        
+        currentSongIndex = currentSongIndex > 0 ? currentSongIndex - 1 : songsList.length - 1;
+        loadSong(songsList[currentSongIndex]);
+    }
+
+    // Function to load next song
+    function loadNextSong() {
+        if (songsList.length === 0) return;
+        
+        currentSongIndex = currentSongIndex < songsList.length - 1 ? currentSongIndex + 1 : 0;
+        loadSong(songsList[currentSongIndex]);
+    }
+
+    // Event Listeners
+    previousSongBtn.addEventListener("click", loadPreviousSong);
+    nextSongBtn.addEventListener("click", loadNextSong);
+
+    playPauseButton.addEventListener("click", () => {
+        if (isPlaying) {
+            audioElement.pause();
+            playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+        } else {
+            audioElement.play();
+            playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        isPlaying = !isPlaying;
+    });
+
+    rewindButton.addEventListener("click", () => {
+        audioElement.currentTime = Math.max(0, audioElement.currentTime - 5);
+    });
+
+    fastForwardButton.addEventListener("click", () => {
+        audioElement.currentTime = Math.min(audioElement.duration, audioElement.currentTime + 5);
+    });
+
+    // Audio element event listeners
+    audioElement.addEventListener("timeupdate", () => {
+        const progress = (audioElement.currentTime / audioElement.duration) * 100;
+        progressBar.value = progress;
+        currentTimeSpan.textContent = formatTime(audioElement.currentTime);
+    });
+
+    audioElement.addEventListener("loadedmetadata", () => {
+        durationSpan.textContent = formatTime(audioElement.duration);
+    });
+
+    // Auto-play next song when current song ends
+    audioElement.addEventListener("ended", () => {
+        loadNextSong();
+    });
+
+    progressBar.addEventListener("input", () => {
+        const time = (progressBar.value / 100) * audioElement.duration;
+        audioElement.currentTime = time;
+    });
+
+    // Helper function to format time
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+        return `${minutes}:${secs}`;
+    }
+
+    // Initialize the player
+    initializeSongsList();
+    const selectedSong = JSON.parse(localStorage.getItem("selectedSong"));
+    if (selectedSong) {
+        loadSong(selectedSong);
+    } else if (songsList.length > 0) {
+        loadSong(songsList[0]);
+    }
+});
+

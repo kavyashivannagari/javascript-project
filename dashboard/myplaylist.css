@@ -1,0 +1,37 @@
+.playlist-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    gap: 20px;
+}
+
+.playlist-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.song-info {
+    flex-grow: 1;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.empty-playlist {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
