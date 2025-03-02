@@ -1,181 +1,334 @@
-#landing {
+/* Global Styles & Variables */
+:root {
+    --spotify-black: #121212;
+    --spotify-dark-gray: #181818;
+    --spotify-gray: #282828;
+    --spotify-light-gray: #b3b3b3;
+    --spotify-green: #1DB954;
+    --spotify-white: #FFFFFF;
+    --spotify-hover-gray: #333333;
+    --transition: all 0.3s ease;
+    --card-radius: 8px;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  }
+  
+  body {
+    font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--spotify-black);
+    color: var(--spotify-white);
+    min-height: 100vh;
+  }
+  
+  /* Navbar Styling */
+  .navbar {
+    background-color: rgba(18, 18, 18, 0.8);
+    padding: 1rem 2rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  #brand{
+    color: white;
+  }
+  
+  .navbar-brand {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.5px;
+  }
+  
+  .navbar-brand:hover {
+    color: var(--spotify-green);
+    text-decoration: none;
+  }
+  
+  /* Button Styling */
+  .btn {
+    padding: 0.6rem 1.8rem;
+    border-radius: 500px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    transition: var(--transition);
+  }
+  
+  #loginbtn {
+    background-color: transparent;
+    background-color: var(--spotify-green);
+    color: var(--spotify-black);
+  }
+  
+  #loginbtn:hover {
+    background-color: var(--spotify-white);
+    color: var(--spotify-black);
+    transform: scale(1.05);
+  }
+  
+  #signupbtn {
+    background-color: var(--spotify-green);
+    border: none;
+    color: var(--spotify-black);
+  }
+  
+  #signupbtn:hover {
+    background-color: #1ed760;
+    transform: scale(1.05);
+  }
+  
+  /* Modal Styling */
+  .modal-content {
+    background-color: var(--spotify-gray);
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow);
+    border: none;
+    color: var(--spotify-white);
+  }
+  
+  .modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+  }
+  
+  .modal-title {
+    color: var(--spotify-white);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  
+  .btn-close {
+    color: var(--spotify-light-gray);
+    opacity: 0.8;
+    filter: invert(1) grayscale(100%) brightness(200%);
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+  }
+  
+  .modal-footer {
+    border-top: none;
+    padding: 1rem 1.5rem 1.5rem;
+  }
+  
+  .modal-footer .btn {
+    background-color: var(--spotify-green);
+    color: var(--spotify-black);
     width: 100%;
-    height: 100vh;
-}
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 0.8rem;
+  }
+  
+  .modal-footer .btn:hover {
+    background-color: #1ed760;
+    transform: scale(1.02);
+  }
+  
+  /* Form Styling */
+  .form-control {
+    background-color: var(--spotify-dark-gray);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--spotify-white);
+    padding: 0.8rem 1rem;
+    border-radius: var(--card-radius);
+    transition: var(--transition);
+  }
+  
+  .form-control:focus {
+    background-color: var(--spotify-dark-gray);
+    box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.5);
+    border-color: var(--spotify-green);
+    color: var(--spotify-white);
+  }
+  
+  .form-control::placeholder {
+    color: var(--spotify-light-gray);
+    opacity: 0.7;
+  }
+  
+  .form-label {
+    font-weight: 600;
+    color: var(--spotify-white);
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-text {
+    color: var(--spotify-light-gray);
+    font-size: 0.8rem;
+  }
+  
+  /* Validation Styling */
+  .is-valid {
+    border-color: var(--spotify-green);
+    background-image: none !important;
+  }
+  
+  .is-invalid {
+    border-color: #e91429;
+    background-image: none !important;
+  }
+  
+  .invalid-feedback {
+    color: #e91429;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  /* Landing Section Styling */
+  #landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), var(--spotify-black) 70%), 
+                url('https://source.unsplash.com/random/1920x1080/?music-concert') no-repeat center center;
+    background-size: cover;
+  }
+  
+  /* Welcome Section Styling (Uncomment when you're ready to use it) */
+  
+  #section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    padding: 4rem 2rem;
+  }
+  
+  #section_left {
+    flex: 1;
+    padding: 2rem;
+  }
+  
+  #section_left h1 {
+    color: var(--spotify-white);
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+  
+  #section_right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  #section_right img {
+    max-width: 80%;
+    height: auto;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow);
+  }
 
-.navbar-brand {
-    font-family: cursive;
-    font-weight: bolder;
-}
+  
+  /* SweetAlert Customization */
+  .swal2-popup {
+    background-color: var(--spotify-gray) !important;
+    border-radius: var(--card-radius) !important;
+    color: var(--spotify-white) !important;
+  }
+  
+  .swal2-title {
+    color: var(--spotify-white) !important;
+  }
+  
+  .swal2-text {
+    color: var(--spotify-light-gray) !important;
+  }
+  
+  .swal2-confirm {
+    background-color: var(--spotify-green) !important;
+    border-radius: 500px !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.5px !important;
+  }
+  
+  .swal2-icon {
+    border-color: var(--spotify-green) !important;
+    color: var(--spotify-green) !important;
+  }
+  
+  .swal2-icon.swal2-error {
+    border-color: #e91429 !important;
+    color: #e91429 !important;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .navbar-brand {
+      font-size: 1.5rem;
+    }
+    
 
-#signupbtn, #loginbtn {
-    border: none;
-    padding: 6px 24px;
-    border-radius: 15px;
-    border: 1.5px solid black;
-    color: black;
-}
-
-#signupbtn:hover, #loginbtn:hover {
-    border: none;
-    background-color: #580052;
-    color: white;
-}
-
-.closebtn {
-    border: none;
-    outline: none;
-}
-
-.closebtn:hover, .closebtn:active {
-    border: 1.5px solid #580052;
-    background-color: #580052;
-    color: white;
-}
-
-.modal-fade {
-    /* border: 2px solid orangered; */
-    border-radius: 20px;
-}
-
-.modal-dialog {
-    /* border: 4px solid #580052; */
-    border-radius: 15px;
-}
-
-.modal-body input {
-    outline: none;
-    border: none;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    color: #580052;
-    border-bottom: 1.5px solid #580052;
-}
-
-.modal-body input:hover, .modal-body input:focus, .modal-body input:active {
-    box-shadow: 4px 4px 4px #580052;
-    /* border-width: 2px; */
-}
-
-#SignupSubmit, #LoginSubmit {
-    border: 1.5px solid #580052;
-    padding: 6px 25px;
-    background-color: #580052;
-    border-radius: 20px;
-    color: white;
-}
-
-#SignupSubmit:hover, #LoginSubmit:hover {
-    border: none;
-    background-color: #580052;
-}
-
-.my-popup {
-    border: 4px solid #580052;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
+    #section {
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    
+    #section_left h1 {
+      font-size: 2.5rem;
+    }
+    
+    #section_right {
+      margin-top: 2rem;
+    }
+    
+  }
+  
+  @media (max-width: 768px) {
     .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      padding: 0.8rem 1rem;
     }
-
-    .navbar .d-flex {
-        display: none;
+    
+    .btn {
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
     }
-
-    .navbar-toggler {
-        display: block;
-        border: none;
-        background: transparent;
-        font-size: 1.5rem;
-        color: black;
-        cursor: pointer;
+  
+    
+    #section_left h1 {
+      font-size: 2rem;
     }
-
-    .navbar-toggler:focus {
-        outline: none;
+    
+  }
+  
+  @media (max-width: 576px) {
+    .navbar-brand {
+      font-size: 1.3rem;
     }
-
-    .mobile-menu {
-        display: none;
-        flex-direction: column;
-        gap: 10px;
-        position: absolute;
-        top: 60px;
-        right: 10px;
-        background-color: white;
-        padding: 10px;
-        border: 1.5px solid #580052;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    .btn {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.75rem;
     }
-
-    .mobile-menu.show {
-        display: flex;
-    }
-
-    .mobile-menu button {
-        padding: 6px 24px;
-        border-radius: 15px;
-        border: 1.5px solid black;
-        color: black;
-        background-color: white;
-    }
-
-    .mobile-menu button:hover {
-        background-color: #580052;
-        color: white;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .navbar {
-        justify-content: space-between;
-    }
-
-    #signupbtn, #loginbtn {
-        padding: 8px 28px;
-        font-size: 1rem;
-    }
-
+    
     .modal-dialog {
-        /* width: 90%; */
-        max-width: 600px;
+      margin: 0.5rem;
     }
-}
-
-@media (min-width: 1025px) and (max-width: 1366px) {
-    .navbar {
-        justify-content: space-between;
+    
+    
+    #section_left h1 {
+      font-size: 1.8rem;
     }
-
-    #signupbtn, #loginbtn {
-        padding: 10px 30px;
-        font-size: 1.1rem;
-    }
-
-    .modal-dialog {
-        /* width: 70%; */
-        max-width: 800px;
-    }
-}
-
-@media (min-width: 1367px) {
-    .navbar {
-        justify-content: space-between;
-    }
-
-    #signupbtn, #loginbtn {
-        padding: 12px 36px;
-        font-size: 1.2rem;
-    }
-
-    .modal-dialog {
-        /* width: 50%; */
-        max-width: 900px;
-    }
-}
+    
+  }
+  
+  @font-face {
+    font-family: 'Circular';
+    src: url('https://fonts.cdnfonts.com/css/circular-std') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Circular';
+    src: url('https://fonts.cdnfonts.com/css/circular-std') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }

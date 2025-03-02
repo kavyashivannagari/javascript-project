@@ -18,51 +18,8 @@ const database = getDatabase(app);
 const hamicon = document.getElementById('hamicon');
 const homeaside = document.getElementById('homeaside');
 
-hamicon.addEventListener('click', () => {
-  homeaside.style.display = homeaside.style.display === 'none' ? 'block' : 'none';
-  if (homeaside.style.display === 'none') {
-    homeaside.style.display = 'flex';
-    homeaside.style.width = '20%';
-    homeaside.style.height = '100vh';
-    homeaside.style.border = '2px solid white';
-    homeaside.style.padding = '60px 30px';
-    homeaside.style.flexDirection = 'column';
-    homeaside.style.alignItems = 'center';
-    homeaside.style.rowGap = '50px';
-    homeaside.style.position = 'fixed';
-    homeaside.style.top = '30';
-    homeaside.style.left = '0';
-    homeaside.style.backgroundColor = '#f0f0f0';
-    homeaside.style.zIndex = '100';
-    homeaside.style.boxShadow = '6px 6px 6px #580052';
-  }
-  else {
-    homeaside.style.display = 'none';
-  }
-});
 
-const backIcon = document.createElement('i');
-backIcon.classList.add('fa-solid', 'fa-xmark');
-backIcon.style.position = 'absolute';
-backIcon.style.top = '30px';
-backIcon.style.right = '10px';
-backIcon.style.fontSize = '20px';
-backIcon.style.cursor = 'pointer';
-backIcon.style.color = '#580052';
 
-homeaside.appendChild(backIcon);
-hamicon.addEventListener('click', () => {
-if (homeaside.style.display === 'none') {
-    homeaside.style.display = 'flex';
-  }
-else {
-    homeaside.style.display = 'none';
-  }
-});
-
-backIcon.addEventListener('click', () => {
-  homeaside.style.display = 'none';
-});
 
 async function fetchSongData() {
   const dbRef = ref(database, 'songs');
@@ -98,31 +55,35 @@ function setSelectedsong(song){
 
 
 async function displaySongs() {
-  const data = await fetchSongData(); // Await the promise to get the resolved data
-  console.log(data)
+  const data = await fetchSongData();
   if (data) {
     const organizedData = organizeDataByLanguage(data);
-    const allSongs = Object.values(organizedData).flat(); // Flatten the data into an array of songs
-
+    const allSongs = Object.values(organizedData).flat();
+    
+    // Store all songs in localStorage
+    localStorage.setItem('allSongs', JSON.stringify(allSongs));
+    
     const songSlider = document.getElementById("songSlider");
-    songSlider.innerHTML = ""; // Clear previous content
+    songSlider.innerHTML = "";
 
-    allSongs.forEach(song => {
+    allSongs.forEach((song, index) => {
       const card = document.createElement("div");
       card.classList.add("songCard");
+      // Add error handling for cover image
+      const coverImage = song.coverImage || '../images/default-cover.jpg'; // Provide a default image path
       card.innerHTML = `
-        <img src="${song.coverImage}" alt="${song.title}">
+        <img src="${coverImage}" alt="${song.title}" onerror="this.src='../images/default-cover.jpg'">
         <h5>${song.title}</h5>
         <h6>${song.album}</h6>
         <p>${song.artist}</p>
       `;
       card.addEventListener("click", () => {
         setSelectedsong(song);
+        localStorage.setItem('currentSongIndex', index);
         location.href = "../dashboard/singlesong.html";
       });
       songSlider.append(card);
     });
-
     // Left and right buttons for scrolling
     const sliderWidth = parseFloat(getComputedStyle(songSlider).width);
     const firstCard = document.querySelector(".songCard");
@@ -270,3 +231,53 @@ searchInput.addEventListener("input", async () => {
     console.log("No songs found.");
   }
 });
+
+async function createPlaylist(playlistName) {
+  const database = getDatabase();
+  const userPlaylists = ref(database, 'playlists');
+  
+  try {
+      // Create a new playlist with a unique ID
+      const newPlaylistRef = push(userPlaylists);
+      await set(newPlaylistRef, {
+          name: playlistName,
+          songs: [],
+          createdAt: new Date().toISOString()
+      });
+      return newPlaylistRef.key;
+  } catch (error) {
+      console.error("Error creating playlist:", error);
+      return null;
+  }
+}
+
+// Function to add song to playlist
+async function addSongToPlaylist(playlistId, song) {
+  const database = getDatabase();
+  const playlistRef = ref(database, `playlists/${playlistId}/songs`);
+  
+  try {
+      // Get current songs in playlist
+      const snapshot = await get(playlistRef);
+      let songs = [];
+      if (snapshot.exists()) {
+          songs = snapshot.val();
+      }
+      
+      // Check if song already exists
+      const songExists = songs.some(s => s.title === song.title && s.artist === song.artist);
+      if (songExists) {
+          alert('Song already exists in playlist!');
+          return false;
+      }
+      
+      // Add new song
+      songs.push(song);
+      await set(playlistRef, songs);
+      alert('Song added to playlist successfully!');
+      return true;
+  } catch (error) {
+      console.error("Error adding song to playlist:", error);
+      return false;
+  }
+}

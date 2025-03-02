@@ -3,14 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Playlist page</title>
-    <link rel="stylesheet" href="./myplaylist.css">
+    <title>My Playlist</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .playlist-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+        }
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .song-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+        .song-info {
+            flex-grow: 1;
+        }
+        .song-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .song-artist {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .play-button, .remove-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 1.2em;
+        }
+        .play-button {
+            color: #1db954;
+        }
+        .remove-button {
+            color: #e74c3c;
+        }
+        .empty-playlist {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-    <div class="playlist-container">
-        <h1>My Playlist</h1>
-        <div id="playlistItems"></div>
-    </div>
-    <script src="./myplaylist.html" type="module"></script>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html">Your Music App</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./home.html">Home</a></li>
+                <li><a href="myplaylist.html" class="active">My Playlist</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="playlist-container">
+            <h1>My Playlist</h1>
+            <div id="playlistItems"></div>
+        </div>
+    </main>
+
+    <script src="./myplaylist.js">
+        document.addEventListener("DOMContentLoaded", () => {
+            const playlistContainer = document.getElementById("playlistItems");
+            
+            // Function to render the playlist
+            function renderPlaylist() {
+                // Get playlist from localStorage
+                const playlist = JSON.parse(localStorage.getItem("myPlaylist")) || [];
+                
+                // Clear the container first
+                playlistContainer.innerHTML = '';
+                
+                // If playlist is empty
+                if (playlist.length === 0) {
+                    playlistContainer.innerHTML = `
+                        <div class="empty-playlist">
+                            <i class="fas fa-music" style="font-size: 3em; margin-bottom: 20px;"></i>
+                            <h2>Your playlist is empty</h2>
+                            <p>Go to the player and add some songs!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Display each song in the playlist
+                playlist.forEach((song, index) => {
+                    const playlistItem = document.createElement("div");
+                    playlistItem.className = "playlist-item";
+                    
+                    playlistItem.innerHTML = `
+                        <img src="${song.coverImage}" alt="${song.title}" class="song-image" 
+                             onerror="this.src='../images/default-cover.jpg'">
+                        <div class="song-info">
+                            <div class="song-title">${song.title}</div>
+                            <div class="song-artist">${song.artist}</div>
+                        </div>
+                       
+                        <button class="remove-button" data-index="${index}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    `;
+                    
+                    playlistContainer.appendChild(playlistItem);
+                });
+                
+                // Add event listeners for play buttons
+                document.querySelectorAll(".play-button").forEach(button => {
+                    button.addEventListener("click", () => {
+                        const index = parseInt(button.getAttribute("data-index"));
+                        playSongFromPlaylist(index);
+                    });
+                });
+                
+                // Add event listeners for remove buttons
+                document.querySelectorAll(".remove-button").forEach(button => {
+                    button.addEventListener("click", () => {
+                        const index = parseInt(button.getAttribute("data-index"));
+                        removeSongFromPlaylist(index);
+                    });
+                });
+            }
+            
+            // Function to play a song from the playlist
+            function playSongFromPlaylist(index) {
+                const playlist = JSON.parse(localStorage.getItem("myPlaylist")) || [];
+                if (index >= 0 && index < playlist.length) {
+                    const selectedSong = playlist[index];
+                    
+                    // Find the index of this song in the main songs list
+                    const allSongs = JSON.parse(localStorage.getItem("allSongs")) || [];
+                    const mainIndex = allSongs.findIndex(song => 
+                        song.audioUrl === selectedSong.audioUrl || 
+                        (song.title === selectedSong.title && song.artist === selectedSong.artist)
+                    );
+                    
+                    // Store the selected song and its index
+                    localStorage.setItem("selectedSong", JSON.stringify(selectedSong));
+                    if (mainIndex !== -1) {
+                        localStorage.setItem("currentSongIndex", mainIndex.toString());
+                    }
+                    
+                    // Set flag to auto-play when redirected to player page
+                    localStorage.setItem("autoPlayNextSong", "true");
+                    
+                    // Navigate to player page
+                    window.location.href = "player.html";
+                }
+            }
+            
+            // Function to remove a song from the playlist
+            function removeSongFromPlaylist(index) {
+                const playlist = JSON.parse(localStorage.getItem("myPlaylist")) || [];
+                if (index >= 0 && index < playlist.length) {
+                    // Get the song that's being removed for the confirmation message
+                    const songToRemove = playlist[index];
+                    
+                    // Confirm before removing
+                    if (confirm(`Remove "${songToRemove.title}" from your playlist?`)) {
+                        // Remove the song from playlist
+                        playlist.splice(index, 1);
+                        localStorage.setItem("myPlaylist", JSON.stringify(playlist));
+                        
+                        // Re-render the playlist
+                        renderPlaylist();
+                    }
+                }
+            }
+            
+            // Initial render
+            renderPlaylist();
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2025 Your Music App. All rights reserved.</p>
+    </footer>
 </body>
 </html>

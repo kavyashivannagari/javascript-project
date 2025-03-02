@@ -9,13 +9,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="home">
     <nav>
         <div id="navleft">
-            <i class="fa-solid fa-bars" id="hamicon"></i>
-            <img src="../images/logo.gif" alt="" width="60">
              <h2>Audio Alley</h2>
         </div>
         <div id="navright">
@@ -25,28 +24,23 @@
             </div>
            <div id="navigationlinks">
             <a href="./home.html">Home</a>
-            <a href="">AboutUS</a>
+            <a href="">About Us</a>
             <a href="./myplaylist.html">My Playlist</a>
             <a href="./data.html">Add song</a>
-
-            <button type="button" id="logout">logout</button>
+            <button type="button" id="logout">Logout</button>
            </div>
+           <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fa fa-bars"></i>
+           </button>
         </div>
     </nav>
     <div id="homebody">
-    <aside id="homeaside">
-        <a href="">Home</a>
-        <a href="">Discover</a>
-        <a href="">Create Playlist</a>
-        <a href="">Albums</a>
-        <a href="">Artists</a>
-        <a href="">Wishlist</a>
-    </aside>
+   
     <div id="songsCarouselContainer">
         <button class="carousel-control left" aria-label="Previous Song"><i
             class="fa-solid fa-chevron-left buttons"></i></button>
     <div class="songs-slider" id="songSlider">
-
+        <!-- Song cards will be loaded here -->
     </div>
     <button class="carousel-control right" aria-label="Next Song"><i
             class="fa-solid fa-chevron-right buttons"></i></button>
@@ -54,6 +48,57 @@
     <div id="searchResultsContainer" style="display: none;">
         <!-- Search results will be displayed here -->
     </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Audio Alley</h4>
+                <p>Your ultimate music destination for discovering, streaming, and creating playlists.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="uil uil-facebook"></i></a>
+                    <a href="#"><i class="uil uil-instagram"></i></a>
+                    <a href="#"><i class="uil uil-twitter"></i></a>
+                    <a href="#"><i class="uil uil-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="./home.html">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="./myplaylist.html">My Playlist</a></li>
+                    <li><a href="#">Premium</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Copyright Info</a></li>
+                    <li><a href="#">Cookies Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Subscribe</h4>
+                <p>Stay updated with our latest releases and features</p>
+                <div class="subscribe-form">
+                    <input type="email" placeholder="Your email address">
+                    <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Audio Alley. All rights reserved.</p>
+        </div>
+    </footer>
     <script src="./home.js" type="module"></script>
+    <!-- Add this JavaScript for mobile menu toggle -->
+    <script>
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            document.getElementById('navigationlinks').classList.toggle('active');
+        });
+    </script>
+    </div>
 </body>
 </html>
