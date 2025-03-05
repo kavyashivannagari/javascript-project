@@ -1,47 +1,133 @@
 
-body{
+/* Spotify-inspired color palette */
+:root {
+    --spotify-green: #1DB954;
+    --spotify-black: #191414;
+    --spotify-dark-gray: #121212;
+    --spotify-light-gray: #282828;
+    --spotify-white: #FFFFFF;
+    --spotify-hover-green: #1ed760;
+    --form-radius: 8px;
+    --transition-speed: 0.3s;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Circular', 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  body {
+    background-color: var(--spotify-black);
+    color: var(--spotify-white);
+    min-height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
-}
-
-form{
-    width: 40%;
-    height: 100vh;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  #songdata {
+    background-color: var(--spotify-dark-gray);
+    border-radius: var(--form-radius);
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    gap: 10px;
-    align-items: center;
-    border: 2px solid #580054;
-    border-radius: 20px;
-    box-shadow: 10px 10px 10px #580054;
-}
-input{
-    width: 70%;
-    height: 30px;
-    outline: none;
-    border: 1px solid #580054;
-    border-radius: 25px;
+    gap: 16px;
+  }
+  
+  input, select {
+    background-color: var(--spotify-light-gray);
+    border: none;
+    border-radius: 4px;
+    color: var(--spotify-white);
+    font-size: 14px;
+    padding: 12px 16px;
+    width: 100%;
+    transition: all var(--transition-speed);
+  }
+  
+  input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  input:focus, select:focus {
+    outline: 2px solid var(--spotify-green);
+    background-color: rgba(40, 40, 40, 0.8);
+  }
+  
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+  }
+  
+  option {
+    background-color: var(--spotify-dark-gray);
+  }
+  
+  #postbtn {
+    background-color: var(--spotify-green);
+    color: var(--spotify-white);
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  #postbtn:hover {
+    background-color: var(--spotify-hover-green);
+    transform: scale(1.03);
+  }
+  
+  /* Title for the form */
+  #songdata::before {
+    content: 'Add New Track';
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: block;
     text-align: center;
-    padding: 10px;
-    color: #580054;
-}
-input:hover{
-    box-shadow: 6px 6px 6px #580054;
-
-}
-select{
-    border: 1px solid #580054;
-    border-radius: 20px;
-    color: #580054;
-
-}
-button{
-   border: 2px solid #580054; 
-   padding: 6px 25px;
-   border-radius: 20px;
-}
-select{
-    padding: 10px;
-}
+    color: var(--spotify-white);
+  }
+  
+  /* Make form responsive for different screen sizes */
+  @media (max-width: 768px) {
+    #songdata {
+      padding: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    body {
+      padding: 15px;
+    }
+    
+    #songdata {
+      padding: 20px 15px;
+    }
+    
+    input, select {
+      padding: 10px 12px;
+    }
+    
+    #postbtn {
+      padding: 12px;
+    }
+    
+    #songdata::before {
+      font-size: 22px;
+    }
+  }

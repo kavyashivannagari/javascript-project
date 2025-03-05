@@ -1,0 +1,249 @@
+body {
+    background-color: #121212;
+    color: white;
+    font-family: 'Circular', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 70px; /* Space for fixed footer */
+}
+
+header {
+    background-color: #000000;
+    padding: 1rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 1.5rem;
+}
+
+.nav-links a {
+    color: #b3b3b3;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: white;
+}
+
+.playlist-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #181818;
+    border-radius: 8px;
+}
+
+.playlist-container h1 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #282828;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.playlist-item:hover {
+    background-color: #3E3E3E;
+}
+
+.song-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+.song-info {
+    flex: 1;
+    min-width: 120px;
+    margin-right: 10px;
+}
+
+.song-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+    word-break: break-word;
+}
+
+.song-artist {
+    color: #b3b3b3;
+    font-size: 0.9em;
+    word-break: break-word;
+}
+
+audio {
+    max-width: 100%;
+    margin: 5px 0;
+    filter: invert(1);
+}
+
+.controls-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.play-button, .remove-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1.2em;
+    transition: transform 0.2s;
+}
+
+.play-button {
+    color: #1db954;
+}
+
+.play-button:hover {
+    transform: scale(1.1);
+}
+
+.remove-button {
+    color: #b3b3b3;
+}
+
+.remove-button:hover {
+    color: #e74c3c;
+    transform: scale(1.1);
+}
+
+.empty-playlist {
+    text-align: center;
+    padding: 40px;
+    color: #b3b3b3;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #000000;
+    color: #b3b3b3;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+/* Spotify-style button */
+.spotify-button {
+    background-color: #1db954;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.spotify-button:hover {
+    background-color: #1ed760;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .playlist-container {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .playlist-item {
+        padding: 8px;
+    }
+    
+    .song-image {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .song-info {
+        min-width: 100px;
+    }
+    
+    audio {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .playlist-item {
+        flex-wrap: wrap;
+    }
+    
+    .controls-container {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .nav-links {
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .nav-links li {
+        margin: 5px 10px 5px 0;
+    }
+    
+    .playlist-container h1 {
+        font-size: 1.5rem;
+    }
+    
+    .song-image {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .song-title {
+        font-size: 0.9rem;
+    }
+    
+    .song-artist {
+        font-size: 0.8rem;
+    }
+    
+    .play-button, .remove-button {
+        font-size: 1.1em;
+    }
+}

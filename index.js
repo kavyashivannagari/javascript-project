@@ -213,3 +213,16 @@ document.addEventListener('DOMContentLoaded', () => {
     addInputValidation(loginEmail, validateEmail);
     addInputValidation(loginPassword, validatePassword);
 });
+
+document.getElementById('skipLoginBtn').addEventListener('click', () => {
+    Swal.fire({
+        icon: 'info',
+        title: 'Skipping Login',
+        text: 'Continuing as a guest...',
+        timer: 1500,
+        showConfirmButton: false
+    }).then(() => {
+        // Redirect to dashboard or home page as a guest
+        window.location.href = "./dashboard/home.html";
+    });
+});

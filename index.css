@@ -257,6 +257,17 @@
     border-color: #e91429 !important;
     color: #e91429 !important;
   }
+  #skipLoginBtn {
+    background-color: var(--spotify-light-gray);
+    color: var(--spotify-black);
+    transition: var(--transition);
+}
+
+#skipLoginBtn:hover {
+    background-color: var(--spotify-hover-gray);
+    color: var(--spotify-white);
+    transform: scale(1.05);
+}
   
   /* Responsive Design */
   @media (max-width: 992px) {

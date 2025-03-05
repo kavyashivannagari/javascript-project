@@ -5,24 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="./data.css">
 
 </head>
 
 <body>
     <form id="songdata">
-        <input type="text" placeholder="id" id="id">
-        <input type="text" placeholder="songtitle" id="songname">
-        <input type="text" placeholder="album name" id="songalbum">
-        <input type="text" placeholder="aritist" id="artist">
-        <input type="text" placeholder="coverimage src without quotes" id="coverimage">
-        <input type="text" placeholder="audiourl src without quotes" id="audiourl">
-        <input type="text" placeholder="musicdirector" id="musicdirector">
-        <input type="text" placeholder="actors" id="actors">
-        <input type="text" placeholder="writer" id="writer">
-        <input type="text" placeholder="release year" id="releaseyear">
+        <input type="text" placeholder="id" id="id" required>
+        <input type="text" placeholder="songtitle" id="songname" required>
+        <input type="text" placeholder="album name" id="songalbum" required>
+        <input type="text" placeholder="aritist" id="artist" required>
+        <input type="text" placeholder="coverimage src without quotes" id="coverimage" required>
+        <input type="text" placeholder="audiourl src without quotes" id="audiourl" required>
+        <input type="text" placeholder="musicdirector" id="musicdirector" required>
+        <input type="text" placeholder="actors" id="actors" required>
+        <input type="text" placeholder="writer" id="writer" required>
+        <input type="text" placeholder="release year" id="releaseyear" required>
 
-        <select id="language" title="option">
+        <select id="language" title="option" required>
             <option value="Telugu">Telugu</option>
             <option value="Hindi">Hindi</option>
             <option value="English">English</option>
@@ -32,10 +35,10 @@
             <option value="Punjabi">Punjabi</option>
 
         </select>
-        <select id="category" title="option">
+        <select id="category" title="option" required>
             <option value="Love">Love</option>
             <option value="Melody">Melody</option>
-            <option value="Inspiration">Inspiration</option>
+            <option value="Inspirational">Inspiration</option>
             <option value="Romance">Romance</option>
             <option value="Devotional">Devotional</option>
             <option value="Pop">Pop</option>

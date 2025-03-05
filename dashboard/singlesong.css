@@ -237,7 +237,8 @@ body {
     position: relative;
     z-index: 2;
     transition: var(--transition);
-    opacity: 0;
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     margin-top: -3px; /* Center the thumb */
 }
   

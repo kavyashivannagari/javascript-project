@@ -1,6 +1,7 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js"; // Add this line
 
 const firebaseConfig = {
   apiKey: "AIzaSyBDGJ5CaMG7XVltrSJ1VEqiaOonivmy0eg",
@@ -14,6 +15,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+const auth = getAuth(app);
+
 
 const hamicon = document.getElementById('hamicon');
 const homeaside = document.getElementById('homeaside');
@@ -281,3 +284,56 @@ async function addSongToPlaylist(playlistId, song) {
       return false;
   }
 }
+
+
+// Logout functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const logoutButton = document.getElementById('logout');
+  
+  if (logoutButton) {
+    logoutButton.addEventListener('click', function() {
+      signOut(auth).then(() => {
+        // Redirect to login page after successful logout
+        console.log("User signed out successfully");
+        window.location.href = "../index.html"; // Adjust the path if needed
+      }).catch((error) => {
+        // Handle any errors
+        console.error("Logout Error:", error);
+        alert("Failed to log out. Please try again.");
+      });
+    });
+  }
+});
+
+// JavaScript for mobile menu toggle functionality
+document.addEventListener('DOMContentLoaded', () => {
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const navRight = document.getElementById('navright');
+
+  // Toggle mobile menu
+  mobileMenuToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      navRight.classList.toggle('active');
+      
+      // Update hamburger icon
+      const isActive = navRight.classList.contains('active');
+      mobileMenuToggle.innerHTML = isActive 
+          ? '<i class="fa fa-times"></i>' 
+          : '<i class="fa fa-bars"></i>';
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (event) => {
+      if (!navRight.contains(event.target) && 
+          !mobileMenuToggle.contains(event.target) && 
+          navRight.classList.contains('active')) {
+          navRight.classList.remove('active');
+          mobileMenuToggle.innerHTML = '<i class="fa fa-bars"></i>';
+      }
+  });
+
+  // Prevent menu from closing when clicking inside
+  navRight.addEventListener('click', (event) => {
+      event.stopPropagation();
+  });
+});
