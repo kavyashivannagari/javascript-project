@@ -1,345 +1,510 @@
 /* Global Styles & Variables */
 :root {
-    --spotify-black: #121212;
-    --spotify-dark-gray: #181818;
-    --spotify-gray: #282828;
-    --spotify-light-gray: #b3b3b3;
-    --spotify-green: #1DB954;
-    --spotify-white: #FFFFFF;
-    --spotify-hover-gray: #333333;
-    --transition: all 0.3s ease;
-    --card-radius: 8px;
-    --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  }
-  
-  body {
-    font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--spotify-black);
-    color: var(--spotify-white);
-    min-height: 100vh;
-  }
-  
-  /* Navbar Styling */
-  .navbar {
-    background-color: rgba(18, 18, 18, 0.8);
-    padding: 1rem 2rem;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-  #brand{
-    color: white;
-  }
-  
+  --spotify-black: #121212;
+  --spotify-dark-gray: #181818;
+  --spotify-gray: #282828;
+  --spotify-light-gray: #b3b3b3;
+  --spotify-green: #1DB954;
+  --spotify-white: #FFFFFF;
+  --spotify-hover-gray: #333333;
+  --transition: all 0.3s ease;
+  --card-radius: 8px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --gradient-dark: linear-gradient(to bottom, rgba(18, 18, 18, 0.8), rgba(18, 18, 18, 0.95));
+}
+
+body {
+  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--spotify-black);
+  color: var(--spotify-white);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* Improved Navbar Styling */
+.navbar {
+  background-color: rgba(18, 18, 18, 0.85);
+  padding: 1.2rem 2.5rem;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+#brand {
+  color: var(--spotify-white);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+}
+
+#brand::before {
+  content: "♪";
+  margin-right: 8px;
+  color: var(--spotify-green);
+  font-size: 1.8rem;
+}
+
+.navbar-brand:hover {
+  color: var(--spotify-green);
+  transform: scale(1.02);
+}
+
+/* Enhanced Button Styling */
+.btn {
+  padding: 0.7rem 2rem;
+  border-radius: 500px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: none;
+}
+
+#loginbtn {
+  background-color: var(--spotify-green);
+  color: var(--spotify-black);
+  position: relative;
+  overflow: hidden;
+}
+
+#loginbtn:hover {
+  background-color: var(--spotify-white);
+  color: var(--spotify-black);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+#signupbtn {
+  background-color: transparent;
+  color: var(--spotify-white);
+  border: 2px solid var(--spotify-green);
+  position: relative;
+  overflow: hidden;
+}
+
+#signupbtn:hover {
+  background-color: var(--spotify-green);
+  color: var(--spotify-black);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+#skipLoginBtn {
+  background-color: var(--spotify-gray);
+  color: var(--spotify-light-gray);
+  transition: var(--transition);
+  font-size: 0.8rem;
+  padding: 0.7rem 1.5rem;
+}
+
+#skipLoginBtn:hover {
+  background-color: var(--spotify-hover-gray);
+  color: var(--spotify-white);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Improved Modal Styling */
+.modal-content {
+  background-color: var(--spotify-gray);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: none;
+  color: var(--spotify-white);
+  overflow: hidden;
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.8rem 2rem 1.2rem;
+  position: relative;
+}
+
+.modal-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--spotify-green), transparent);
+}
+
+.modal-title {
+  color: var(--spotify-white);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  font-size: 1.8rem;
+}
+
+.btn-close {
+  color: var(--spotify-light-gray);
+  opacity: 0.8;
+  filter: invert(1) grayscale(100%) brightness(200%);
+  transition: var(--transition);
+}
+
+.btn-close:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.modal-footer {
+  border-top: none;
+  padding: 1rem 2rem 2rem;
+}
+
+.modal-footer .btn {
+  background-color: var(--spotify-green);
+  color: var(--spotify-black);
+  width: 100%;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 1rem;
+}
+
+.modal-footer .btn:hover {
+  background-color: #1ed760;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced Form Styling */
+.form-control {
+  background-color: var(--spotify-dark-gray);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--spotify-white);
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  transition: var(--transition);
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  background-color: rgba(24, 24, 24, 0.9);
+  box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.3);
+  border-color: var(--spotify-green);
+  color: var(--spotify-white);
+  transform: translateY(-2px);
+}
+
+.form-control::placeholder {
+  color: var(--spotify-light-gray);
+  opacity: 0.7;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--spotify-white);
+  margin-bottom: 0.7rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+.form-text {
+  color: var(--spotify-light-gray);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+/* Animated Validation Styling */
+.is-valid {
+  border-color: var(--spotify-green);
+  background-image: none !important;
+  animation: pulse-green 1s;
+}
+
+.is-invalid {
+  border-color: #e91429;
+  background-image: none !important;
+  animation: pulse-red 1s;
+}
+
+@keyframes pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(29, 185, 84, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0); }
+}
+
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 0 0 rgba(233, 20, 41, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(233, 20, 41, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(233, 20, 41, 0); }
+}
+
+.invalid-feedback {
+  color: #e91429;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.invalid-feedback::before {
+  content: "⚠️";
+  margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+/* Enhanced Landing Section Styling */
+#landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), var(--spotify-black) 90%), 
+              url('https://source.unsplash.com/random/1920x1080/?music-concert') no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+#landing::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: radial-gradient(circle at top right, rgba(29, 185, 84, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
+/* Welcome Section Styling */
+#section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  padding: 5rem 3rem;
+  position: relative;
+}
+
+#section_left {
+  flex: 1;
+  padding: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+#section_left h1 {
+  color: var(--spotify-white);
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 1s ease-out;
+}
+
+#section_left h1 span {
+  color: var(--spotify-green);
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#section_right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+#section_right img {
+  max-width: 85%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transform: perspective(1000px) rotateY(-5deg);
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#section_right img:hover {
+  transform: perspective(1000px) rotateY(0deg) translateZ(20px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+/* Enhanced SweetAlert Customization */
+.swal2-popup {
+  background-color: var(--spotify-gray) !important;
+  border-radius: 16px !important;
+  color: var(--spotify-white) !important;
+  box-shadow: var(--shadow) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.swal2-title {
+  color: var(--spotify-white) !important;
+  font-weight: 800 !important;
+}
+
+.swal2-text {
+  color: var(--spotify-light-gray) !important;
+}
+
+.swal2-confirm {
+  background-color: var(--spotify-green) !important;
+  border-radius: 500px !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  padding: 1rem 2rem !important;
+  box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3) !important;
+}
+
+.swal2-icon {
+  border-color: var(--spotify-green) !important;
+  color: var(--spotify-green) !important;
+}
+
+.swal2-icon.swal2-error {
+  border-color: #e91429 !important;
+  color: #e91429 !important;
+}
+
+/* Responsive Design Improvements */
+@media (max-width: 992px) {
   .navbar-brand {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: white;
-    letter-spacing: -0.5px;
+    font-size: 1.6rem;
   }
   
-  .navbar-brand:hover {
-    color: var(--spotify-green);
-    text-decoration: none;
+  #section {
+    flex-direction: column;
+    text-align: center;
+    padding: 3rem 1.5rem;
   }
   
-  /* Button Styling */
+  #section_left h1 {
+    font-size: 3rem;
+  }
+  
+  #section_right {
+    margin-top: 3rem;
+  }
+  
+  #section_right img {
+    transform: none;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 1.5rem;
+  }
+  
   .btn {
-    padding: 0.6rem 1.8rem;
-    border-radius: 500px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+    padding: 0.6rem 1.2rem;
     font-size: 0.85rem;
-    transition: var(--transition);
   }
-  
-  #loginbtn {
-    background-color: transparent;
-    background-color: var(--spotify-green);
-    color: var(--spotify-black);
-  }
-  
-  #loginbtn:hover {
-    background-color: var(--spotify-white);
-    color: var(--spotify-black);
-    transform: scale(1.05);
-  }
-  
-  #signupbtn {
-    background-color: var(--spotify-green);
-    border: none;
-    color: var(--spotify-black);
-  }
-  
-  #signupbtn:hover {
-    background-color: #1ed760;
-    transform: scale(1.05);
-  }
-  
-  /* Modal Styling */
-  .modal-content {
-    background-color: var(--spotify-gray);
-    border-radius: var(--card-radius);
-    box-shadow: var(--shadow);
-    border: none;
-    color: var(--spotify-white);
-  }
-  
-  .modal-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1.5rem;
+
+  #section_left h1 {
+    font-size: 2.5rem;
   }
   
   .modal-title {
-    color: var(--spotify-white);
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1.4rem;
   }
   
-  .btn-close {
-    color: var(--spotify-light-gray);
-    opacity: 0.8;
-    filter: invert(1) grayscale(100%) brightness(200%);
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .modal-dialog {
+    margin: 0.8rem;
+  }
+  
+  #section_left h1 {
+    font-size: 2rem;
+  }
+  
+  .form-control {
+    padding: 0.8rem 1rem;
   }
   
   .modal-body {
     padding: 1.5rem;
   }
-  
-  .modal-footer {
-    border-top: none;
-    padding: 1rem 1.5rem 1.5rem;
-  }
-  
-  .modal-footer .btn {
-    background-color: var(--spotify-green);
-    color: var(--spotify-black);
-    width: 100%;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    padding: 0.8rem;
-  }
-  
-  .modal-footer .btn:hover {
-    background-color: #1ed760;
-    transform: scale(1.02);
-  }
-  
-  /* Form Styling */
-  .form-control {
-    background-color: var(--spotify-dark-gray);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--spotify-white);
-    padding: 0.8rem 1rem;
-    border-radius: var(--card-radius);
-    transition: var(--transition);
-  }
-  
-  .form-control:focus {
-    background-color: var(--spotify-dark-gray);
-    box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.5);
-    border-color: var(--spotify-green);
-    color: var(--spotify-white);
-  }
-  
-  .form-control::placeholder {
-    color: var(--spotify-light-gray);
-    opacity: 0.7;
-  }
-  
-  .form-label {
-    font-weight: 600;
-    color: var(--spotify-white);
-    margin-bottom: 0.5rem;
-  }
-  
-  .form-text {
-    color: var(--spotify-light-gray);
-    font-size: 0.8rem;
-  }
-  
-  /* Validation Styling */
-  .is-valid {
-    border-color: var(--spotify-green);
-    background-image: none !important;
-  }
-  
-  .is-invalid {
-    border-color: #e91429;
-    background-image: none !important;
-  }
-  
-  .invalid-feedback {
-    color: #e91429;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-  }
-  
-  /* Landing Section Styling */
-  #landing {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), var(--spotify-black) 70%), 
-                url('https://source.unsplash.com/random/1920x1080/?music-concert') no-repeat center center;
-    background-size: cover;
-  }
-  
-  /* Welcome Section Styling (Uncomment when you're ready to use it) */
-  
-  #section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex: 1;
-    padding: 4rem 2rem;
-  }
-  
-  #section_left {
-    flex: 1;
-    padding: 2rem;
-  }
-  
-  #section_left h1 {
-    color: var(--spotify-white);
-    font-size: 3.5rem;
-    font-weight: 900;
-    letter-spacing: -1px;
-    line-height: 1.1;
-    margin-bottom: 2rem;
-  }
-  
-  #section_right {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-  
-  #section_right img {
-    max-width: 80%;
-    height: auto;
-    border-radius: var(--card-radius);
-    box-shadow: var(--shadow);
-  }
-
-  
-  /* SweetAlert Customization */
-  .swal2-popup {
-    background-color: var(--spotify-gray) !important;
-    border-radius: var(--card-radius) !important;
-    color: var(--spotify-white) !important;
-  }
-  
-  .swal2-title {
-    color: var(--spotify-white) !important;
-  }
-  
-  .swal2-text {
-    color: var(--spotify-light-gray) !important;
-  }
-  
-  .swal2-confirm {
-    background-color: var(--spotify-green) !important;
-    border-radius: 500px !important;
-    text-transform: uppercase !important;
-    font-weight: 700 !important;
-    letter-spacing: 1.5px !important;
-  }
-  
-  .swal2-icon {
-    border-color: var(--spotify-green) !important;
-    color: var(--spotify-green) !important;
-  }
-  
-  .swal2-icon.swal2-error {
-    border-color: #e91429 !important;
-    color: #e91429 !important;
-  }
-  #skipLoginBtn {
-    background-color: var(--spotify-light-gray);
-    color: var(--spotify-black);
-    transition: var(--transition);
 }
 
-#skipLoginBtn:hover {
-    background-color: var(--spotify-hover-gray);
-    color: var(--spotify-white);
-    transform: scale(1.05);
+/* Improved Font Loading */
+@font-face {
+  font-family: 'Circular';
+  src: url('https://fonts.cdnfonts.com/css/circular-std') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
-  
-  /* Responsive Design */
-  @media (max-width: 992px) {
-    .navbar-brand {
-      font-size: 1.5rem;
-    }
-    
 
-    #section {
-      flex-direction: column;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-    
-    #section_left h1 {
-      font-size: 2.5rem;
-    }
-    
-    #section_right {
-      margin-top: 2rem;
-    }
-    
+@font-face {
+  font-family: 'Circular';
+  src: url('https://fonts.cdnfonts.com/css/circular-std') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Adding animation for button hover effects */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.btn:hover::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
   }
-  
-  @media (max-width: 768px) {
-    .navbar {
-      padding: 0.8rem 1rem;
-    }
-    
-    .btn {
-      padding: 0.4rem 1rem;
-      font-size: 0.8rem;
-    }
-  
-    
-    #section_left h1 {
-      font-size: 2rem;
-    }
-    
+  100% {
+    transform: scale(20, 20);
+    opacity: 0;
   }
-  
-  @media (max-width: 576px) {
-    .navbar-brand {
-      font-size: 1.3rem;
-    }
-    
-    .btn {
-      padding: 0.3rem 0.8rem;
-      font-size: 0.75rem;
-    }
-    
-    .modal-dialog {
-      margin: 0.5rem;
-    }
-    
-    
-    #section_left h1 {
-      font-size: 1.8rem;
-    }
-    
-  }
-  
-  @font-face {
-    font-family: 'Circular';
-    src: url('https://fonts.cdnfonts.com/css/circular-std') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Circular';
-    src: url('https://fonts.cdnfonts.com/css/circular-std') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-  }
+}

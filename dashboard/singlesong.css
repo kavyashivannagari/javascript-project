@@ -11,7 +11,7 @@
     --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     --button-size: 40px;
 }
-  
+
 body {
     font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: 0;
@@ -23,7 +23,7 @@ body {
     justify-content: center;
     align-items: center;
 }
-  
+
 /* Main Container */
 #SingleSongContainer {
     width: 90%;
@@ -37,17 +37,17 @@ body {
     flex-direction: column;
     gap: 2rem;
 }
-  
+
 /* Song Top Section (Image and Info) */
 #singleSongTop {
     display: flex;
     gap: 2rem;
 }
-  
+
 #singleSongTopLeft {
     flex: 0 0 280px;
 }
-  
+
 #songImage {
     width: 100%;
     height: auto;
@@ -56,14 +56,14 @@ body {
     border-radius: var(--card-radius);
     box-shadow: var(--shadow);
 }
-  
+
 #singleSongTopRight {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-  
+
 #songTitle {
     font-size: 2.5rem;
     font-weight: 900;
@@ -71,37 +71,37 @@ body {
     color: var(--spotify-white);
     letter-spacing: -0.5px;
 }
-  
+
 #songAlbum {
     font-size: 1.2rem;
     color: var(--spotify-white);
     margin: 0 0 0.8rem 0;
     font-weight: 700;
 }
-  
+
 #singleSongTopRight p {
     color: var(--spotify-light-gray);
     margin: 0.3rem 0;
     font-size: 1rem;
 }
-  
+
 #songArtist {
     font-size: 1.1rem;
     margin-bottom: 1rem !important;
 }
-  
+
 /* Song Bottom Section (Player Controls) */
 #singleSongBottom {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
-  
+
 /* Hide default audio controls */
 #songAudio {
     display: none;
 }
-  
+
 /* Custom Audio Controls */
 #audioControls {
     display: flex;
@@ -110,7 +110,7 @@ body {
     gap: 1rem;
     margin-bottom: 0.5rem;
 }
-  
+
 #audioControls button {
     background: transparent;
     border: none;
@@ -125,12 +125,12 @@ body {
     align-items: center;
     transition: var(--transition);
 }
-  
+
 #audioControls button:hover {
     color: var(--spotify-white);
     background-color: var(--spotify-hover-gray);
 }
-  
+
 #playPauseBtn {
     background-color: var(--spotify-green) !important;
     color: var(--spotify-black) !important;
@@ -138,142 +138,143 @@ body {
     width: calc(var(--button-size) * 1.2) !important;
     height: calc(var(--button-size) * 1.2) !important;
 }
-  
+
 #playPauseBtn:hover {
     transform: scale(1.05);
     background-color: var(--spotify-green) !important;
     color: var(--spotify-black) !important;
     box-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
 }
-  
+
 /* Active play button state */
 .playing #playPauseBtn {
     background-color: var(--spotify-green) !important;
     box-shadow: 0 0 15px rgba(29, 185, 84, 0.5);
 }
-  
+
 #createPlaylistBtn {
     color: var(--spotify-green) !important;
     margin-left: 1rem;
 }
-  
+
 #createPlaylistBtn:hover {
     color: var(--spotify-green) !important;
     background-color: rgba(29, 185, 84, 0.2) !important;
 }
-  
+
 /* Progress Bar Container */
 #progressContainer {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
-  
+
 #currentTime, #duration {
     color: var(--spotify-light-gray);
     font-size: 0.8rem;
     min-width: 45px;
 }
-  
+
 /* Improved Progress Bar */
 #progressBar {
     flex: 1;
-    height: 6px; /* Slightly thicker for better visibility */
+    height: 4px;
     -webkit-appearance: none;
     appearance: none;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
+    border-radius: 2px;
     outline: none;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    transition: height 0.2s ease;
+}
+
+/* Hover state for progress bar */
+#progressBar:hover {
+    height: 6px;
 }
 
 /* Progress track styling */
 #progressBar::-webkit-slider-runnable-track {
-    height: 6px;
-    border-radius: 3px;
+    height: 100%;
+    border-radius: 2px;
     background: rgba(255, 255, 255, 0.1);
 }
 
 #progressBar::-moz-range-track {
-    height: 6px;
-    border-radius: 3px;
+    height: 100%;
+    border-radius: 2px;
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Progress fill styling */
-#progressBar::-moz-range-progress {
-    background-color: var(--spotify-green);
-    color: var(--spotify-green);
-    height: 6px;
-    border-radius: 3px;
-    transition: width 0.1s linear;
+/* Progress fill styling - for WebKit browsers */
+#progressBar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
 }
 
-/* Active progress bar with dynamic fill */
-.playing #progressBar::before {
+/* Progress fill styling - for Firefox */
+#progressBar::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Custom progress fill */
+#progressBar::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
-    width: var(--progress-percent, 0%);
-    background-color: var(--spotify-green);
-    border-radius: 3px;
-    z-index: 1;
+    width: var(--progress, 0%);
+    background-color: var(--spotify-light-gray);
+    border-radius: 2px;
+    z-index: 0;
     transition: width 0.1s linear;
 }
-  
-/* Thumb styling */
-#progressBar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--spotify-white);
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-    transition: var(--transition);
-    opacity: 1;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    margin-top: -3px; /* Center the thumb */
-}
-  
-#progressBar:hover::-webkit-slider-thumb {
-    opacity: 1;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-}
-  
-#progressBar::-moz-range-thumb {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--spotify-green);
-    cursor: pointer;
-    border: none;
-    transition: var(--transition);
-    opacity: 0;
-    z-index: 2;
-    position: relative;
-}
-  
-#progressBar:hover::-moz-range-thumb {
-    opacity: 1;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-}
-  
+
 /* Playing state for progress bar */
-.playing #progressBar::-webkit-slider-thumb {
+.playing #progressBar::before {
+    background-color: var(--spotify-green);
+}
+
+/* Custom thumb - only visible when interacting */
+#progressBar::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: var(--progress, 0%);
+    width: 12px;
+    height: 12px;
+    background: var(--spotify-white);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease;
+    z-index: 2;
+}
+
+/* Show thumb on hover/focus */
+#progressBar:hover::after,
+#progressBar:focus::after {
+    opacity: 1;
+}
+
+/* Playing state for thumb */
+.playing #progressBar::after {
     background: var(--spotify-green);
 }
-  
-.playing #progressBar::-moz-range-thumb {
-    background: var(--spotify-green);
-}
-  
+
 /* Responsive Design */
 @media (max-width: 768px) {
     #singleSongTop {
@@ -281,95 +282,89 @@ body {
         align-items: center;
         text-align: center;
     }
-      
+    
     #singleSongTopLeft {
         flex: 0 0 auto;
         width: 60%;
         max-width: 250px;
         margin-bottom: 1.5rem;
     }
-      
+    
     #songTitle {
         font-size: 1.8rem;
     }
-      
+    
     #songAlbum {
         font-size: 1.1rem;
     }
-      
+    
     #singleSongBottom {
         gap: 1rem;
     }
-      
+    
     #audioControls {
         gap: 0.6rem;
     }
-      
+    
     #audioControls button {
         width: calc(var(--button-size) * 0.9);
         height: calc(var(--button-size) * 0.9);
     }
 }
-  
+
 @media (max-width: 480px) {
     #SingleSongContainer {
         padding: 1rem;
         width: 95%;
     }
-      
+    
     #singleSongTopLeft {
         width: 80%;
     }
-      
+    
     #songTitle {
         font-size: 1.5rem;
     }
-      
+    
     #audioControls {
         flex-wrap: wrap;
         justify-content: center;
     }
-      
+    
     #audioControls button {
         width: calc(var(--button-size) * 0.8);
         height: calc(var(--button-size) * 0.8);
         font-size: 1rem;
     }
-      
+    
     #playPauseBtn {
         width: calc(var(--button-size) * 1) !important;
         height: calc(var(--button-size) * 1) !important;
     }
 }
-  
-/* Make volume controls visible on hover if you add them later */
-.volume-container {
-    position: relative;
+
+/* Back button styling */
+#backButtonContainer {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#backButton {
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
 }
-  
-.volume-slider {
-    width: 0;
-    overflow: hidden;
-    transition: width 0.3s ease;
-}
-  
-.volume-container:hover .volume-slider {
-    width: 100px;
-}
-  
-/* Add Spotify's font if possible */
-@font-face {
-    font-family: 'Circular';
-    src: url('https://fonts.cdnfonts.com/css/circular-std') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-}
-  
-@font-face {
-    font-family: 'Circular';
-    src: url('https://fonts.cdnfonts.com/css/circular-std') format('woff2');
-    font-weight: 700;
-    font-style: normal;
+
+#backButton:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.05);
 }

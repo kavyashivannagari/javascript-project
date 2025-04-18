@@ -7,10 +7,17 @@
     <link rel="stylesheet" href="./singlesong.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+  
 </head>
 <body>
     <div id="SingleSongContainer">
+        <!-- Added back button here -->
+        <div id="backButtonContainer">
+            <button id="backButton" onclick="window.location.href='home.html'">
+                <i class="fas fa-arrow-left"></i> 
+            </button>
+        </div>
+        
         <div id="singleSongTop">
             <div id="singleSongTopLeft">
                 <img src="" alt="Song Cover" id="songImage">
@@ -25,18 +32,17 @@
             </div>
         </div>
         <div id="singleSongBottom">
-            <audio id="songAudio" controls>
+            <audio id="songAudio" controls >
                 <source src="" type="audio/mpeg">
             </audio>
 
             <div id="audioControls">
-                <button   id="previousSongBtn"><i class="fas fa-step-backward"></i></button>
+                <button id="previousSongBtn"><i class="fas fa-step-backward"></i></button>
                 <button id="rewindBtn"><i class="fas fa-backward"></i></button>
                 <button id="playPauseBtn"><i class="fas fa-play"></i></button>
                 <button id="fastForwardBtn"><i class="fas fa-forward"></i></button>
                 <button id="nextSongBtn"><i class="fas fa-step-forward"></i></button>
                 <button id="createPlaylistBtn"><i class="fas fa-plus-circle"></i></button>
-                
             </div>
             
             <div id="progressContainer">
@@ -46,6 +52,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="./singlesong.js"></script>
 </body>
 </html>

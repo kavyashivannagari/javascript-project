@@ -222,6 +222,8 @@ document.getElementById('skipLoginBtn').addEventListener('click', () => {
         timer: 1500,
         showConfirmButton: false
     }).then(() => {
+        // Clear any existing auth data
+        localStorage.removeItem('userToken'); // if you're using this
         // Redirect to dashboard or home page as a guest
         window.location.href = "./dashboard/home.html";
     });

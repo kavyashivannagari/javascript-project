@@ -267,6 +267,32 @@ nav {
     background-color: transparent;
 }
 
+.spinner-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #1a8540;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 /* Search Results Container */
 #searchResultsContainer {
     display: flex;
@@ -307,7 +333,7 @@ nav {
 .footer-section h4 {
     font-size: 1.2rem;
     margin-bottom: 1.2rem;
-    color: #1db954;
+    color: #1a8540;
     font-weight: 600;
     background-color: transparent;
 }
@@ -402,6 +428,61 @@ nav {
     background-color: transparent;
 }
 
+/* Enhanced Carousel Controls for Mobile */
+@media screen and (max-width: 768px) {
+    #songsCarouselContainer {
+        padding: 0 20px;
+    }
+    
+    .carousel-control {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+        padding: 8px;
+    }
+    
+    .carousel-control.left {
+        left: 5px;
+    }
+    
+    .carousel-control.right {
+        right: 5px;
+    }
+    
+    /* Optional: Make the controls slightly transparent on mobile */
+    .carousel-control {
+        background-color: rgba(40, 40, 40, 0.6);
+    }
+    
+    /* Increase touch target area */
+    .carousel-control::after {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+    }
+    .fa-solid fa-chevron-right buttons{
+        font-size: 10px;
+    }
+}
+
+/* Further adjustments for very small screens */
+@media screen and (max-width: 480px) {
+    .carousel-control {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+    
+    #songsCarouselContainer {
+        padding: 0 15px;
+    }
+    .fa-solid fa-chevron-right buttons{
+        font-size: 7px;
+    }
+}
 /* Navigation Bar Responsive Styles */
 @media screen and (max-width: 1024px) {
     nav {
@@ -463,6 +544,12 @@ nav {
         width: 100%;
         margin-bottom: 10px;
     }
+    .fa-solid fa-chevron-right buttons{
+        font-size: 12px;
+    }
+    
+    
+    
 }
 
 /* Desktop Styles - Hide hamburger menu */
